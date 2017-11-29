@@ -1,0 +1,32 @@
+<md-toolbar>
+    <div class="md-toolbar-tools">O logo aqui</div>
+</md-toolbar>
+<div layout="row">
+    <sidenav></sidenav>
+
+    <div ng-cloak md-scroll-y class="form" flex layout="column" layout-padding>
+      <div id='USERS'>
+          <!-- ==== REEMBOLSOS_LIST ==== -->
+          <md-list>
+              <md-list-item class="small-font-medium topic">
+                  <p class="md-list-item-text" flex><strong> Nome </strong></p>
+                  <p class="md-list-item-text" flex><strong> Email </strong></p>
+                  <p class="md-list-item-text" flex><strong> Sala </strong></p>
+                  <p class="md-list-item-text" flex><strong> Tipo de Usuario </strong></p>
+              </md-list-item>
+              <br>
+              <md-divider></md-divider>
+              <br>
+              <md-list-item class="small-font-medium topic"  ng-repeat="user in users">
+                      <p class="md-list-item-text" flex>{{user.name}}</p>
+                      <p class="md-list-item-text" flex>{{user.email}} </p>
+                      <p class="md-list-item-text" flex>{{user.room}}</p>
+                      <p class="md-list-item-text" flex>{{user.userKind}}</p>
+                      <md-button class="md-raised md-primary" ng-click="setUserKind($event, user)">Tornar ADM</md-button>
+              </md-list-item>
+          </md-list>
+
+          {{}}
+      </div>
+    </div>
+</div>

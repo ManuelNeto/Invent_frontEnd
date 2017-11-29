@@ -1,0 +1,39 @@
+<md-toolbar>
+    <div class="md-toolbar-tools">O logo aqui</div>
+</md-toolbar>
+
+<div layout="row">
+    <sidenav></sidenav>
+
+    <div ng-cloak md-scroll-y class="form" flex layout="column">
+      <div>
+        <div id='THINGS'>
+            <md-list>
+                <md-list-item class="small-font-medium topic">
+                    <p class="md-list-item-text" flex><strong> No. Patrimonio </strong></p>
+                    <p class="md-list-item-text" flex><strong> No. Série </strong></p>
+                    <p class="md-list-item-text" flex><strong> Descrisção </strong></p>
+                    <p class="md-list-item-text" flex><strong> Marca/Modelo </strong></p>
+                    <p class="md-list-item-text" flex><strong> Situação </strong></p>
+                </md-list-item>
+                <br>
+                <md-divider></md-divider>
+                <br>
+                <md-list-item class="small-font-medium topic" ng-repeat="thing in listThings" ng-click="showThing(thing._id)">
+                        <p class="md-list-item-text" flex>{{thing.number_Patrimony}}</p>
+                        <p class="md-list-item-text" flex>{{thing.serie}}</p>
+                        <p class="md-list-item-text"flex>{{thing.description}} </p>
+                        <p class="md-list-item-text"flex>{{thing.brand_model}}</p>
+                        <p class="md-list-item-text"flex>{{thing.situation}}</p>
+                </md-list-item>
+            </md-list>
+            <div id="FAB-BUTTON">
+                <md-button ng-click="goTo('create-edit-thing')" aria-label="menu" class="md-fab" id="criarNovoObjeto">
+                    <md-icon style="padding-bottom: 20px; color: #FFF">add</md-icon>
+                </md-button>
+            </div>
+        </div>
+      </div>
+    </div>
+
+</div>
