@@ -10,6 +10,15 @@ angular.module('Invent').controller('ThingController', function($scope, $state, 
 	var thingsCount;
 	$scope.listRooms;
 
+	myScope.addThing = function(thing){
+
+		ThingFactory.addThing(thing).then(function(result){
+			$state.go('listing-things');
+			console.log("Sucesso");
+		}).catch(function(result){
+			console.log("Error");
+		})
+	};
 
 	listRooms = function (){
 		RoomFactory.getRooms().then(function(result){
@@ -31,8 +40,6 @@ angular.module('Invent').controller('ThingController', function($scope, $state, 
 		ThingFactory.getThings().then(function(result){
 			myScope.listThings = result;
 			myScope.thingsCount = result.length;
-			console.log(result);
-
 		})
 	};
 
@@ -46,10 +53,21 @@ angular.module('Invent').controller('ThingController', function($scope, $state, 
 	getKindCurrentUser = function () {
 		var currentUserKind = authentication.currentUser();
 		myScope.currentUserKind = currentUserKind.userKind;
+
 	}
 
 	getKindCurrentUser();
 
+	getHasImage = function () {
+		var id = $stateParams.idThing;
+		console.log(id);
+		ThingFactory.getThing(id).then(function(result){
+				$scope.thing = result;
+				return $scope.thing.image == ''; //tem imagem
+		})
+	}
+
+	getHasImage();
 
 	myScope.showThing = function(item){
 		$state.go('create-edit-thing', { idThing : item._id});
@@ -65,15 +83,6 @@ angular.module('Invent').controller('ThingController', function($scope, $state, 
     limit: 10,
     page: 1
   };
-
-	myScope.addThing = function(thing){
-		ThingFactory.addThing(thing).then(function(result){
-			$state.go('listing-things');
-			console.log("Sucesso");
-		}).catch(function(result){
-			console.log("Error");
-		})
-	};
 
 	myScope.editThing = function (thing) {
 	      ThingFactory.editThing(thing).then(function(result){
