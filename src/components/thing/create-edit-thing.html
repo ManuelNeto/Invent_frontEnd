@@ -90,14 +90,19 @@
               </md-input-container>
             </div>
 
-            <div>
-              <input id="imageThing" type="file" name="image" ng-model="thing.image">
-            </div>
+            <!--  se não tiver foto for criar, mostra esse -->
+            <input id="imageThing" type="file" name="image" ng-model=thing.image>
 
+            <br>
             <br>
 
             <div>
-              <a href="#">Ver foto do Objeto</a>
+              <md-button ng-click="viewImage(thing)" ng-show="(thing != null) && getHasImage(thing)" ng-model="thing.image" class="md-primary md-hue-1">Objeto ja possui uma imagem</md-button>
+            </div>
+
+            <div ng-show="clickOK">
+              <img ng-src="{{trustSrc(imageUrl)}}" style="width:400px; height:400px; display:inline-block" alt=""></img>
+
             </div>
 
             <!-- esconder esses botoes do usuario comum -->

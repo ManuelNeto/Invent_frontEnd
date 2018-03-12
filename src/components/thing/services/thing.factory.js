@@ -86,12 +86,23 @@ angular.module('Invent').factory('ThingFactory', function ($window, $http, $stat
 
         editThing: function (thing) {
 
+            var formData = new FormData;
+            //getting file
+            var file = $('#imageThing')[0].files[0];
+            formData.append('image', file);
+
+            for (var key in thing) {
+              formData.append(key, thing[key]);
+            }
+
+
             var req = {
                 method: 'PUT',
                 url: myIp + '/thing/' + thing._id,
-                data: thing,
+                data: formData,
                 headers: {
-                    'Access-Control-Allow-Origin': '*'
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': undefined
                 }
             }
 
@@ -102,15 +113,13 @@ angular.module('Invent').factory('ThingFactory', function ($window, $http, $stat
             });
         },
 
-
-
         addThing: function (thing) {
 
-          console.log(thing);
           var formData = new FormData;
-          //pegando o file
+          //getting file
           var file = $('#imageThing')[0].files[0];
           formData.append('image', file);
+
           for (var key in thing) {
               formData.append(key, thing[key]);
           }

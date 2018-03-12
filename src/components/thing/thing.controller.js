@@ -1,9 +1,9 @@
-angular.module('Invent').controller('ThingController', function($scope, $state, ThingFactory, RoomFactory, $stateParams, authentication) {
+angular.module('Invent').controller('ThingController', function($scope, $state, $sce, ThingFactory, RoomFactory, $stateParams, authentication) {
 
 	var myScope = $scope;
 	$scope.selected = [];
 	$scope.thing;
-  $scope.editable = false;
+	$scope.editable = false;
 	myScope.situations = ["BOM", "RUIM", "DESUSO", "DOAÇÃO"]
 
   var idThing = $stateParams.idThing;
@@ -17,6 +17,7 @@ angular.module('Invent').controller('ThingController', function($scope, $state, 
 			console.log("Sucesso");
 		}).catch(function(result){
 			console.log("Error");
+
 		})
 	};
 
@@ -36,6 +37,22 @@ angular.module('Invent').controller('ThingController', function($scope, $state, 
       })
   };
 
+	$scope.trustSrc = function(src) {
+		return $sce.trustAsResourceUrl(src);
+		myScope.clickOK = false;
+	}
+
+	myScope.viewImage = function (thing) {
+		var myIp = 'http://localhost:8081/uploads/'
+		myScope.imageUrl = myIp + thing.image;
+		myScope.clickOK = true;
+	}
+
+	myScope.getHasImage = function (thing) {
+		myScope.hasImage = thing.image != '';
+		return myScope.hasImage;
+	}
+
 	listThings = function (){
 		ThingFactory.getThings().then(function(result){
 			myScope.listThings = result;
@@ -46,7 +63,7 @@ angular.module('Invent').controller('ThingController', function($scope, $state, 
 	listThings();
 
   if($stateParams.idThing){
-      $scope.editable = true;
+      $scope.editable = true
       myScope.getThing(idThing);
   };
 
@@ -58,20 +75,10 @@ angular.module('Invent').controller('ThingController', function($scope, $state, 
 
 	getKindCurrentUser();
 
-	getHasImage = function () {
-		var id = $stateParams.idThing;
-		console.log(id);
-		ThingFactory.getThing(id).then(function(result){
-				$scope.thing = result;
-				return $scope.thing.image == ''; //tem imagem
-		})
-	}
-
-	getHasImage();
-
 	myScope.showThing = function(item){
 		$state.go('create-edit-thing', { idThing : item._id});
 	};
+
 
 	//go to any state
 	myScope.goTo = function(state) {
