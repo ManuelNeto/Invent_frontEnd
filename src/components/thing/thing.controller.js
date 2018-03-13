@@ -43,7 +43,7 @@ angular.module('Invent').controller('ThingController', function($scope, $state, 
 	}
 
 	myScope.viewImage = function (thing) {
-		var myIp = 'http://localhost:8081/uploads/'
+		var myIp = 'http://localhost:8081/uploads/thingsImages/'
 		myScope.imageUrl = myIp + thing.image;
 		myScope.clickOK = true;
 	}
