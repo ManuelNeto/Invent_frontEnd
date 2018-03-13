@@ -86,10 +86,15 @@ angular.module('Invent').factory('ThingFactory', function ($window, $http, $stat
 
         editThing: function (thing) {
 
+            console.log(thing);
             var formData = new FormData;
             //getting file
             var file = $('#imageThing')[0].files[0];
-            formData.append('image', file);
+            console.log(file);
+
+            if (file != null) {
+              formData.append('image', file);
+            }
 
             for (var key in thing) {
               formData.append(key, thing[key]);

@@ -88,7 +88,10 @@ angular.module('Invent').factory('MachineFactory', function ($window, $http, $st
           var formData = new FormData;
           //getting file
           var file = $('#imageMachine')[0].files[0];
-          formData.append('image', file);
+          
+          if (file != null) {
+            formData.append('image', file);
+          }
 
           for (var key in machine) {
               formData.append(key, machine[key]);
